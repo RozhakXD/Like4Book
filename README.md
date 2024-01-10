@@ -17,7 +17,7 @@
 ##
 
 ### What is Like4Book?
-[**Like4Book**](https://github.com/RozhakXD/Like4Book) is a tool that can be used to gain followers on Facebook by collecting credits.
+[**Like4Book**](https://github.com/RozhakXD/Like4Book) is a tool that can be used to gain followers on Facebook.
 
 You can get 2 credits every time you complete a mission!
 
@@ -44,9 +44,9 @@ $ python Run.py
 - Maybe it was Like4Like's fault because they didn't process your order.
 
 ### Failed to get credit?
-- Maybe your Facebook account is restricted for a few days so you can't follow other accounts.
 - Maybe this is the fault of the likr4like website because it doesn't process the mission.
 - The mission to be completed is temporarily unavailable.
+- Maybe your Facebook account is restricted for a few days so you can't follow other accounts.
 
 ### Why login failed?
 - Like4like account cookies or Facebook account cookies have expired.

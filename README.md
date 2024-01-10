@@ -49,11 +49,11 @@ $ python Run.py
 - Maybe your Facebook account is restricted for a few days so you can't follow other accounts.
 
 ### Why login failed?
-- Like4like account cookies or Facebook account cookies have expired.
 - Maybe your Facebook account is locked or hit by a checkpoint.
 - Facebook account or Like4Like account is logged out.
 - Maybe the like4like website is affected by cloudflare.
 - Maybe you entered the wrong like4like cookies or Facebook cookies.
+- Like4like account cookies or Facebook account cookies have expired.
 
 ### Why are Facebook accounts restricted?
 - Use security like phone numbers, email, and two-factor authentication to reduce spam.

@@ -56,9 +56,9 @@ $ python Run.py
 - Like4like account cookies or Facebook account cookies have expired.
 
 ### Why are Facebook accounts restricted?
-- Use security like phone numbers, email, and two-factor authentication to reduce spam.
-- I recommend an online account in the browser you use.
 - You must use a delay of more than 2 minutes to be safe and not easily blocked.
+- I recommend an online account in the browser you use.
+- Use security like phone numbers, email, and two-factor authentication to reduce spam.
 
 ### What is recommended?
 - Use the Via Browser application to get Facebook cookies or Like4Like cookies.

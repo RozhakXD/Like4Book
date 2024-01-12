@@ -51,8 +51,8 @@ $ python Run.py
 ### Why login failed?
 - Maybe your Facebook account is locked or hit by a checkpoint.
 - Facebook account or Like4Like account is logged out.
-- Maybe the Like4Like cookies are problematic or incomplete.
 - Maybe the like4like website is affected by cloudflare.
+- Maybe the Like4Like cookies are problematic or incomplete.
 - Maybe you entered the wrong like4like cookies or Facebook cookies.
 - Like4like account cookies or Facebook account cookies have expired.
 

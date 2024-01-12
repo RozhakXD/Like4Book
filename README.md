@@ -53,6 +53,7 @@ $ python Run.py
 - Facebook account or Like4Like account is logged out.
 - Maybe the like4like website is affected by cloudflare.
 - Maybe you entered the wrong like4like cookies or Facebook cookies.
+- Maybe the Like4Like cookies are problematic or incomplete.
 - Like4like account cookies or Facebook account cookies have expired.
 
 ### Why are Facebook accounts restricted?
@@ -61,7 +62,7 @@ $ python Run.py
 - Use security like phone numbers, email, and two-factor authentication to reduce spam.
 
 ### What is recommended?
-- Use the Via Browser application to get Facebook cookies or Like4Like cookies.
+- You must use Kiwi Browser and the Cookie Dough extension to get cookies.
 - Use additional security such as two-factor authentication.
 - You have to use a fake account or a new account to carry out the mission.
 

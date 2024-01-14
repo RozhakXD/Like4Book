@@ -46,6 +46,7 @@ $ python Run.py
 ### Failed to get credit?
 - Maybe this is the fault of the likr4like website because it doesn't process the mission.
 - The mission to be completed is temporarily unavailable.
+- You can try doing missions on the Like4Like website and then log in to this tool.
 - Maybe your Facebook account is restricted for a few days so you can't follow other accounts.
 
 ### Why login failed?

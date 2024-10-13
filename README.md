@@ -1,77 +1,53 @@
-# FREE FACEBOOK FOLLOWERS - WITH TERMUX
-<div align="center">
-  <img src="Data/Like4Book-.jpg">
-  <br>
-  <br>
-  <p>
-    <img alt="GitHub contributors" src="https://img.shields.io/github/contributors/rozhakxd/Like4Book">
-    <img alt="GitHub issues" src="https://img.shields.io/github/issues/rozhakxd/Like4Book">
-    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=shields">
-    <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/rozhakxd/Like4Book">
-    <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/rozhakxd/Like4Book">
-    <img alt="Maintenance" src="https://img.shields.io/maintenance/no/2023">
-  </p>
-  <h4> Get Followers On Facebook Using Termux Only ! </h4>
-</div>
+# Like4Book - LIKE4LIKE FACEBOOK
+![Like4Book](https://github.com/user-attachments/assets/53dc8eec-61f8-4e41-8ba5-d4802099d5e7)
 
-##
+**Like4Book** adalah sebuah alat yang dirancang untuk menghasilkan pengikut Facebook secara aman dengan menggunakan layanan dari [like4like.org](https://www.like4like.org/). Alat ini mempermudah proses penukaran kredit dari Like4Like untuk mendapatkan pengikut di profil atau halaman Facebook Anda.
 
-### What is Like4Book?
-[**Like4Book**](https://github.com/RozhakXD/Like4Book) is a tool that can be used to gain followers on Facebook.
+## Fitur Utama
+- Tukarkan kredit Like4Like menjadi pengikut untuk profil atau halaman Facebook.
+- Jalankan misi follow Facebook untuk menambah kredit otomatis.
+- Kelola tautan Like4Like yang terhubung dengan akun Anda.
+- Antarmuka yang intuitif dengan sistem input terminal yang mudah digunakan.
+- Aman dan berjalan di latar belakang tanpa mengganggu aktivitas Anda.
 
-You can get 2 credits every time you complete a mission!
+## Persyaratan
+- Python versi 3.x atau lebih baru.
+- Module/Library:
+    - `requests`
+    - `rich`
 
-### Termux command?
-First you must have the [Termux](https://f-droid.org/repo/com.termux_118.apk) to run this script and for how to use it can be seen on [**Youtube**](https://youtu.be/y5ccUAE4RxU). Then you enter this command into termux!
-```
-$ apt update -y && apt upgrade -y
-$ pkg install git python-pip
-$ git clone https://github.com/RozhakXD/Like4Book
-$ cd "Like4Book"
-$ python -m pip install -r requirements.txt
-$ python Run.py
-```
+## Instalasi
+1. Clone repositori ini:
+    ```bash
+    git clone https://github.com/RozhakXD/Like4Book.git
+    ```
+2. Masuk ke direktori proyek:
+    ```bash
+    cd Like4Book
+    ```
+3. Jalankan aplikasi:
+    ```bash
+    python Run.py
+    ```
 
-```
-$ cd "$HOME/Like4Book" && git pul
-$ python Run.py
-```
+## Troubleshooting
+Jika Anda mengalami masalah saat menggunakan Like4Book, berikut adalah beberapa langkah yang dapat Anda lakukan untuk menyelesaikannya:
+- **Masalah: Gagal Mengambil Kredit dari Like4Like**
+    - **Penyebab**: Cookies yang Anda gunakan mungkin kadaluarsa atau salah.
+    - **Solusi**: Pastikan Anda memperbarui cookies dari akun Like4Like dan Facebook Anda. Periksa kembali file Cookie.json di folder Penyimpanan.
+- **Masalah: Koneksi Gagal atau Waktu Tunggu Terlalu Lama**
+    - **Penyebab**: Masalah koneksi internet atau server like4like.org sedang down.
+    - **Solusi**: Pastikan koneksi internet Anda stabil dan coba lagi beberapa saat kemudian. Jika masalah terus berlanjut, coba periksa situs like4like.org untuk mengetahui status server.
+- **Masalah: Misi Follow Tidak Berjalan**
+    - **Penyebab**: Delay mungkin terlalu pendek atau ada masalah dengan cookies akun Facebook.
+    - **Solusi**: Coba perbesar delay misi follow (disarankan lebih dari 60 detik). Jika tidak berhasil, periksa cookies Facebook Anda.
+- **Masalah: Credits Tidak Cukup**
+    - **Penyebab**: Kredit yang dimiliki di like4like.org kurang dari jumlah minimal yang dibutuhkan.
+    - **Solusi**: Pastikan Anda memiliki minimal 50 kredit di akun Like4Like sebelum menjalankan pertukaran pengikut.
 
-### Why didn't the followers arrive?
-- Your Facebook account does not have a follow button, make sure only the follow button is visible to the public.
-- Maybe you entered the wrong Facebook account profile link.
-- Facebook accounts must have public settings enabled for the follow button to appear.
-- Maybe it was Like4Like's fault because they didn't process your order.
+## Peringatan (Warning)
+- **Gunakan dengan Bijak**: Penggunaan **Like4Book** mungkin melanggar **Ketentuan Layanan** Facebook atau Like4Like. Anda bertanggung jawab penuh atas penggunaan alat ini.
+- **Akun Bisa Terblokir**: Penggunaan yang berlebihan atau tidak wajar dapat menyebabkan akun Facebook atau Like4Like Anda diblokir. Gunakanlah fitur ini dengan hati-hati dan hindari penukaran pengikut secara besar-besaran dalam waktu singkat.
 
-### Failed to get credit?
-- Maybe this is the fault of the likr4like website because it doesn't process the mission.
-- The mission to be completed is temporarily unavailable.
-- You can try doing missions on the Like4Like website and then log in to this tool.
-- Maybe your Facebook account is restricted for a few days so you can't follow other accounts.
-
-### Why login failed?
-- Maybe your Facebook account is locked or hit by a checkpoint.
-- Facebook account or Like4Like account is logged out.
-- Maybe the like4like website is affected by cloudflare.
-- Maybe the Like4Like cookies are problematic or incomplete.
-- Maybe you entered the wrong like4like cookies or Facebook cookies.
-- Like4like account cookies or Facebook account cookies have expired.
-
-### Why are Facebook accounts restricted?
-- You must use a delay of more than 2 minutes to be safe and not easily blocked.
-- I recommend an online account in the browser you use.
-- Use security like phone numbers, email, and two-factor authentication to reduce spam.
-
-### What is recommended?
-- You must use Kiwi Browser and the Cookie Dough extension to get cookies.
-- Use additional security such as two-factor authentication.
-- You have to use a fake account or a new account to carry out the mission.
-
-### Why are followers dropping?
-The main reason your followers drop is because they stop following you or Facebook deletes followers on your Facebook account.
-
-##
-```python
-print("Good luck hope it works!")
-```
-##
+## Lisensi
+Like4Book dirilis di bawah lisensi **MIT**. Anda bebas menggunakan, memodifikasi, dan mendistribusikan proyek ini dengan tetap menghormati ketentuan lisensi.

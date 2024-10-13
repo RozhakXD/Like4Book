@@ -4,11 +4,11 @@
 **Like4Book** adalah alat yang aman untuk menambah pengikut Facebook menggunakan layanan dari like4like.org. Alat ini memudahkan Anda menukarkan kredit dari Like4Like untuk mendapatkan pengikut di profil atau halaman Anda.
 
 ## Fitur Utama
-- Tukarkan kredit Like4Like menjadi pengikut untuk profil atau halaman Facebook.
-- Jalankan misi follow Facebook untuk menambah kredit otomatis.
-- Kelola tautan Like4Like yang terhubung dengan akun Anda.
-- Antarmuka yang intuitif dengan sistem input terminal yang mudah digunakan.
-- Aman dan berjalan di latar belakang tanpa mengganggu aktivitas Anda.
+- Tukarkan kredit dari Like4Like menjadi pengikut untuk profil atau halaman Facebook Anda dengan mudah.
+- Jalankan misi follow Facebook untuk menambah kredit secara otomatis dan mempercepat proses mendapatkan pengikut.
+- Kelola tautan Like4Like yang terhubung dengan akun Anda dengan praktis dan efisien.
+- Antarmuka intuitif dengan sistem input terminal yang user-friendly, memudahkan navigasi dan penggunaan.
+- Aman dan efisien, berjalan di latar belakang tanpa mengganggu aktivitas sehari-hari Anda.
 
 ## Persyaratan
 - Python versi 3.x atau lebih baru.

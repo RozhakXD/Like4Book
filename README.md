@@ -25,7 +25,11 @@
     ```bash
     cd Like4Book
     ```
-3. Jalankan aplikasi:
+3. Instalasi dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+5. Jalankan aplikasi:
     ```bash
     python Run.py
     ```

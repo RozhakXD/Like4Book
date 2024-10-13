@@ -1,4 +1,4 @@
-# Like4Book - LIKE4LIKE FACEBOOK
+# Like4Book
 ![Like4Book](https://github.com/user-attachments/assets/53dc8eec-61f8-4e41-8ba5-d4802099d5e7)
 
 **Like4Book** adalah alat yang aman untuk menambah pengikut Facebook menggunakan layanan dari like4like.org. Alat ini memudahkan Anda menukarkan kredit dari Like4Like untuk mendapatkan pengikut di profil atau halaman Anda.

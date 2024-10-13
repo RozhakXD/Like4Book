@@ -1,7 +1,7 @@
 # Like4Book - LIKE4LIKE FACEBOOK
 ![Like4Book](https://github.com/user-attachments/assets/53dc8eec-61f8-4e41-8ba5-d4802099d5e7)
 
-**Like4Book** adalah sebuah alat yang dirancang untuk menghasilkan pengikut Facebook secara aman dengan menggunakan layanan dari [like4like.org](https://www.like4like.org/). Alat ini mempermudah proses penukaran kredit dari Like4Like untuk mendapatkan pengikut di profil atau halaman Facebook Anda.
+**Like4Book** adalah alat inovatif yang dirancang untuk secara aman menghasilkan pengikut di Facebook dengan memanfaatkan layanan dari like4like.org. Alat ini menyederhanakan proses pertukaran kredit dari Like4Like, memungkinkan Anda untuk dengan mudah mendapatkan pengikut di profil atau halaman Facebook Anda.
 
 ## Fitur Utama
 - Tukarkan kredit Like4Like menjadi pengikut untuk profil atau halaman Facebook.
@@ -32,15 +32,15 @@
 
 ## Troubleshooting
 Jika Anda mengalami masalah saat menggunakan Like4Book, berikut adalah beberapa langkah yang dapat Anda lakukan untuk menyelesaikannya:
+- **Masalah: Misi Follow Tidak Berjalan**
+    - **Penyebab**: Delay mungkin terlalu pendek atau ada masalah dengan cookies akun Facebook.
+    - **Solusi**: Coba perbesar delay misi follow (disarankan lebih dari 60 detik). Jika tidak berhasil, periksa cookies Facebook Anda.
 - **Masalah: Gagal Mengambil Kredit dari Like4Like**
     - **Penyebab**: Cookies yang Anda gunakan mungkin kadaluarsa atau salah.
     - **Solusi**: Pastikan Anda memperbarui cookies dari akun Like4Like dan Facebook Anda. Periksa kembali file Cookie.json di folder Penyimpanan.
 - **Masalah: Koneksi Gagal atau Waktu Tunggu Terlalu Lama**
     - **Penyebab**: Masalah koneksi internet atau server like4like.org sedang down.
     - **Solusi**: Pastikan koneksi internet Anda stabil dan coba lagi beberapa saat kemudian. Jika masalah terus berlanjut, coba periksa situs like4like.org untuk mengetahui status server.
-- **Masalah: Misi Follow Tidak Berjalan**
-    - **Penyebab**: Delay mungkin terlalu pendek atau ada masalah dengan cookies akun Facebook.
-    - **Solusi**: Coba perbesar delay misi follow (disarankan lebih dari 60 detik). Jika tidak berhasil, periksa cookies Facebook Anda.
 - **Masalah: Credits Tidak Cukup**
     - **Penyebab**: Kredit yang dimiliki di like4like.org kurang dari jumlah minimal yang dibutuhkan.
     - **Solusi**: Pastikan Anda memiliki minimal 50 kredit di akun Like4Like sebelum menjalankan pertukaran pengikut.

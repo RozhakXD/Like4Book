@@ -1,57 +1,50 @@
-# Like4Book
-![Like4Book](https://github.com/user-attachments/assets/53dc8eec-61f8-4e41-8ba5-d4802099d5e7)
+# Like4Book — Boost Your Facebook Followers Effortlessly! ✨
+![Like4Book Logo](https://github.com/user-attachments/assets/f7989a7d-258a-405a-830c-bdee5aec1ad6)
 
-**Like4Book** adalah alat yang aman untuk menambah pengikut Facebook menggunakan layanan dari like4like.org. Alat ini memudahkan Anda menukarkan kredit dari Like4Like untuk mendapatkan pengikut di profil atau halaman Anda.
+Selamat datang di **Like4Book**! 🎉 Ini adalah alat gratis yang dirancang untuk membantu Anda mendapatkan pengikut di Facebook dengan cara yang aman, etis, dan efisien. Dengan berbagai fitur yang mudah digunakan, Anda dapat meningkatkan kehadiran sosial Anda tanpa khawatir tentang risiko.
 
-## Fitur Utama
-- Tukarkan kredit dari Like4Like menjadi pengikut untuk profil atau halaman Facebook Anda dengan mudah.
-- Jalankan misi follow Facebook untuk menambah kredit secara otomatis dan mempercepat proses mendapatkan pengikut.
-- Kelola tautan Like4Like yang terhubung dengan akun Anda dengan praktis dan efisien.
-- Antarmuka intuitif dengan sistem input terminal yang user-friendly, memudahkan navigasi dan penggunaan.
-- Aman dan efisien, berjalan di latar belakang tanpa mengganggu aktivitas sehari-hari Anda.
+## Fitur Utama 🚀
 
-## Persyaratan
-- Python versi 3.x atau lebih baru.
+- **Tukarkan Koin ke Pengikut**: Dapatkan pengikut untuk profil atau halaman Facebook Anda dengan menukarkan koin yang Anda kumpulkan. 💰➡️👥
+- **Jalankan Misi Follow**: Ikuti misi untuk mendapatkan lebih banyak pengikut secara otomatis. 🏃‍♂️💨
+- **Hapus Tautan yang Terhubung**: Dengan mudah menghapus atau mengarsipkan tautan yang tidak diinginkan dari akun Anda. 🗑️🔗
+- **Mudah Digunakan**: Antarmuka yang ramah pengguna dan instruksi yang jelas membuatnya mudah untuk memulai. 🖥️👌
+
+## Persyaratan 🔧
+- Python versi 3.x atau lebih baru. 🐍
 - Module/Library:
-    - `requests`
-    - `rich`
+    - `requests` 🌐
+    - `rich` 🌟
 
-## Instalasi
-1. Clone repositori ini:
-    ```bash
-    git clone https://github.com/RozhakXD/Like4Book.git
-    ```
-2. Masuk ke direktori proyek:
-    ```bash
-    cd Like4Book
-    ```
-3. Instalasi dependencies:
-    ```bash
-    pip install -r requirements.txt
-    ```
-5. Jalankan aplikasi:
-    ```bash
-    python Run.py
-    ```
+## Instalasi 💻
+```
+$ pkg update -y && pkg upgrade -y
+$ pkg install python-pip git
+$ git clone https://github.com/RozhakXD/Like4Book.git
+$ cd "Like4Book"
+$ pip install -r requirements.txt
+$ python Run.py
+```
 
-## Troubleshooting
-Jika Anda mengalami masalah saat menggunakan Like4Book, berikut adalah beberapa langkah yang dapat Anda lakukan untuk menyelesaikannya:
-- **Masalah: Misi Follow Tidak Berjalan**
-    - **Penyebab**: Delay mungkin terlalu pendek atau ada masalah dengan cookies akun Facebook.
-    - **Solusi**: Coba perbesar delay misi follow (disarankan lebih dari 60 detik). Jika tidak berhasil, periksa cookies Facebook Anda.
-- **Masalah: Gagal Mengambil Kredit dari Like4Like**
-    - **Penyebab**: Cookies yang Anda gunakan mungkin kadaluarsa atau salah.
-    - **Solusi**: Pastikan Anda memperbarui cookies dari akun Like4Like dan Facebook Anda. Periksa kembali file Cookie.json di folder Penyimpanan.
-- **Masalah: Koneksi Gagal atau Waktu Tunggu Terlalu Lama**
-    - **Penyebab**: Masalah koneksi internet atau server like4like.org sedang down.
-    - **Solusi**: Pastikan koneksi internet Anda stabil dan coba lagi beberapa saat kemudian. Jika masalah terus berlanjut, coba periksa situs like4like.org untuk mengetahui status server.
-- **Masalah: Credits Tidak Cukup**
-    - **Penyebab**: Kredit yang dimiliki di like4like.org kurang dari jumlah minimal yang dibutuhkan.
-    - **Solusi**: Pastikan Anda memiliki minimal 50 kredit di akun Like4Like sebelum menjalankan pertukaran pengikut.
+## Tangkapan Layar
+![Like4Book Image]()
 
-## Peringatan (Warning)
-- **Gunakan dengan Bijak**: Penggunaan **Like4Book** mungkin melanggar **Ketentuan Layanan** Facebook atau Like4Like. Anda bertanggung jawab penuh atas penggunaan alat ini.
-- **Akun Bisa Terblokir**: Penggunaan yang berlebihan atau tidak wajar dapat menyebabkan akun Facebook atau Like4Like Anda diblokir. Gunakanlah fitur ini dengan hati-hati dan hindari penukaran pengikut secara besar-besaran dalam waktu singkat.
+## Troubleshooting 🛠️
+- **Koneksi Gagal**: Pastikan koneksi internet Anda stabil dan coba lagi setelah beberapa saat; juga, periksa status server Like4Like jika masalah terus berlanjut.
+- **Misi Follow Tidak Berjalan**: Perbesar delay misi follow Anda (disarankan lebih dari 60 detik) dan pastikan cookies Facebook Anda valid.
+- **Gagal Mengambil Kredit**: Pastikan cookies Anda diperbarui dari akun Like4Like dan Facebook, serta cek file `Cookie.json` di folder Penyimpanan.
+- **Credits Tidak Cukup**: Pastikan Anda memiliki setidaknya 50 kredit di akun Like4Like sebelum mencoba menukarkan pengikut.
 
-## Lisensi
-Like4Book dirilis di bawah lisensi **MIT**. Anda bebas menggunakan, memodifikasi, dan mendistribusikan proyek ini dengan tetap menghormati ketentuan lisensi.
+## Dukung Proyek Ini ❤️
+Jika Anda menikmati **Like4Book** dan ingin mendukung pengembangan lebih lanjut, Anda dapat melakukannya melalui [Trakteer](https://trakteer.id/rozhak_official/tip), [PayPal](https://paypal.me/rozhak9), atau [Saweria](https://saweria.co/rozhak9). Terima kasih atas dukungan Anda! 🙏
+
+## Peringatan ⚠️
+> Penggunaan alat ini harus mematuhi kebijakan dan pedoman Facebook. Menggunakan metode yang tidak etis atau melanggar ketentuan layanan dapat mengakibatkan penangguhan atau penghapusan akun Anda. Pastikan untuk menggunakan Like4Book dengan bijak dan bertanggung jawab. 🛑
+
+## Kontribusi 🤝
+Kami sangat menghargai kontribusi dari komunitas! Jika Anda memiliki saran, perbaikan, atau fitur baru, silakan buka issue atau kirim pull request. Mari kita buat Like4Book lebih baik bersama-sama! 🌟
+
+## Lisensi 📄
+Proyek ini dilisensikan di bawah [MIT License](https://github.com/RozhakXD/Like4Book/blob/main/LICENSE).
+
+> Terima kasih telah menggunakan Like4Book! Semoga Anda mendapatkan banyak pengikut dan sukses di dunia sosial media! 🎊

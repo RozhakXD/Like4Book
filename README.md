@@ -27,7 +27,7 @@ $ python Run.py
 ```
 
 ## Tangkapan Layar
-![Like4Book Image]()
+![FunPic_20241229](https://github.com/user-attachments/assets/097cd9d1-4c0b-42ac-8fe4-cc49a5dc27fa)
 
 ## Troubleshooting 🛠️
 - **Koneksi Gagal**: Pastikan koneksi internet Anda stabil dan coba lagi setelah beberapa saat; juga, periksa status server Like4Like jika masalah terus berlanjut.

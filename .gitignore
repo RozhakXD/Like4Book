@@ -1,1 +1,12 @@
-*.pyc
+# Ignore sensitive files
+Penyimpanan/Cookie.json
+Penyimpanan/Subscribe.json
+
+# IDE files
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class

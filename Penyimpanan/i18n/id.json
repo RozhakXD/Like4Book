@@ -1,0 +1,52 @@
+{
+    "login": {
+        "like4like_cookies": "Silahkan Masukkan Cookies Like4Like, Pastikan Anda Telah Login dengan Akun yang Tepat!",
+        "facebook_cookies": "Silahkan Masukkan Cookies Facebook, Pastikan Akun Sudah Menggunakan Bahasa Indonesia!",
+        "cookies_expired": "Cookies Facebook Kamu Sudah Kedaluwarsa, Silahkan Ambil Ulang Cookies!"
+    },
+    "menu": {
+        "title": "Pilihan Yang Tersedia",
+        "exchange_profile": "Tukarkan Koin Ke Pengikut (Profile)",
+        "follow_mission": "Jalankan Misi Follow Facebook",
+        "delete_links": "Hapus Link Yang Terhubung",
+        "exchange_page": "Tukarkan Koin Ke Pengikut (Page)",
+        "exit": "Keluar (Exit)",
+        "switch_language": "Switch Language / Ganti Bahasa",
+        "select_option": "Pilih menu:"
+    },
+    "status": {
+        "success": "Sukses",
+        "failed": "Gagal",
+        "error": "Error",
+        "wait": "TUNGGU",
+        "success_count": "SUKSES",
+        "failed_count": "GAGAL",
+        "name": "Nama",
+        "coins": "Koin",
+        "user": "Pengguna"
+    },
+    "actions": {
+        "enter_profile_link": "Silahkan Masukkan Link Profile Facebook, Pastikan Akun Hanya Memiliki Tombol Ikuti!",
+        "enter_credits": "Silahkan Masukkan Credits Yang Ingin Digunakan Dari (2-21), Harap Masukkan Satu Saja, Misalnya: 15",
+        "processing_exchange": "Kami Sedang Mencoba Menukarkan Credits Ke Pengikut, Pastikan Anda Memiliki Lebih Dari 50 Kredit Agar Dapat Diproses Oleh Server!",
+        "enter_delay": "Silahkan Masukkan Delay Misi Follow, Sebaiknya Gunakan Delay Di Atas 60 Detik!",
+        "running_mission": "Sedang Menjalankan Misi Follow, Gunakan CTRL + C Jika Stuck Dan CTRL + Z Untuk Berhenti!",
+        "removing_links": "Kami Sedang Menghapus/Mengarsipkan Semua Tautan Yang Terhubung Di Akun Kamu!",
+        "links_removed": "Kami Sudah Menghapus Atau Mengarsipkan Semua Tautan Yang Terhubung Di Akun Anda!",
+        "enter_fanpage_link": "Silahkan Masukkan Link Fanspage Facebook, Pastikan Link Sudah Benar Dan Ada Tombol Ikuti!",
+        "invalid_option": "Pilihan Yang Kamu Masukkan Tidak Tersedia Dalam Fitur!",
+        "deleting_data": "Sedang Mencoba Menghapus Data Akun Kamu, Mohon Tunggu Sebentar!"
+    },
+    "errors": {
+        "get_coins": "GAGAL MENDAPATKAN KOIN!",
+        "no_redirect": "TIDAK MENDAPATKAN REDICT URL!",
+        "no_task_code": "GAGAL MENDAPATKAN KODE-TASK!",
+        "success_delete": "SUKSES MENGHAPUS",
+        "success_archive": "SUKSES MENGARSIPKAN",
+        "failed_delete": "GAGAL MENGHAPUS",
+        "no_user_found": "TIDAK MENEMUKAN USER YANG TERKAIT...",
+        "failed_follow": "GAGAL MENGIKUTI",
+        "facebook_link_used": "Link Facebook Anda Sudah Dipkai Oleh Pengguna Lain, Silakan Gunakan Akun Like4Like Sebelumnya!",
+        "cannot_exchange_credits": "Tidak Bisa Menukarkan Credits Ke Pengikut, Silahkan Coba Tukarkan Secara Manual!"
+    }
+}

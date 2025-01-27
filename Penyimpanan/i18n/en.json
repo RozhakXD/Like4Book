@@ -1,0 +1,52 @@
+{
+    "login": {
+        "like4like_cookies": "Please enter your Like4Like Cookies, make sure you are logged in with the correct account!",
+        "facebook_cookies": "Please enter your Facebook Cookies!",
+        "cookies_expired": "Your Facebook cookies have expired, please get new cookies!"
+    },
+    "menu": {
+        "title": "Available Options",
+        "exchange_profile": "Exchange Coins for Followers (Profile)",
+        "follow_mission": "Run Facebook Follow Mission",
+        "delete_links": "Delete Connected Links",
+        "exchange_page": "Exchange Coins for Followers (Page)",
+        "exit": "Exit",
+        "switch_language": "Switch Language / Ganti Bahasa",
+        "select_option": "Select option:"
+    },
+    "status": {
+        "success": "Success",
+        "failed": "Failed",
+        "error": "Error",
+        "wait": "WAIT",
+        "success_count": "SUCCESS",
+        "failed_count": "FAILED",
+        "name": "Name",
+        "coins": "Coins",
+        "user": "User"
+    },
+    "actions": {
+        "enter_profile_link": "Please enter Facebook Profile link, make sure the account has a Follow button!",
+        "enter_credits": "Please enter credits to use (2-21), enter just one value, example: 15",
+        "processing_exchange": "Processing exchange to followers, make sure you have more than 50 credits for server processing!",
+        "enter_delay": "Please enter Follow mission delay, recommended to use above 60 seconds!",
+        "running_mission": "Running Follow mission, use CTRL + C if stuck and CTRL + Z to stop!",
+        "removing_links": "Removing/Archiving all connected links in your account!",
+        "links_removed": "All connected links have been removed or archived from your account!",
+        "enter_fanpage_link": "Please enter Facebook Fanpage link, make sure it has a Follow button!",
+        "invalid_option": "The option you entered is not available!",
+        "deleting_data": "Deleting your account data, please wait..."
+    },
+    "errors": {
+        "get_coins": "Failed to get coins!",
+        "no_redirect": "Did not get redirect URL!",
+        "no_task_code": "Failed to get task code!",
+        "success_delete": "Successfully deleted",
+        "success_archive": "Successfully archived",
+        "failed_delete": "Failed to delete",
+        "no_user_found": "No related user found...",
+        "failed_follow": "Failed to follow",
+        "facebook_link_used": "Facebook link is already used by another user, please use previous Like4Like account!",
+        "cannot_exchange_credits": "Cannot exchange credits for followers, please try manual exchange!"
+    }
+}

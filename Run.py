@@ -6,6 +6,11 @@ try:
     from rich.columns import Columns
     from rich.panel import Panel
     from requests.exceptions import RequestException
+    from Penyimpanan.i18n.manager import i18n
+    import undetected_chromedriver as uc
+    from selenium.webdriver.common.by import By
+    from selenium.webdriver.support.ui import WebDriverWait
+    from selenium.webdriver.support import expected_conditions as EC
 except Exception as e:
     __import__('sys').exit(f"[Error] {str(e).capitalize()}!")
 
@@ -17,15 +22,131 @@ class Pengaturan:
     def __init__(self) -> None:
         pass
 
+    def launch_browser(self) -> uc.Chrome:
+        """Launch undetected-chromedriver browser"""
+        try:
+            options = uc.ChromeOptions()
+            options.add_argument('--no-sandbox')
+            options.add_argument('--disable-dev-shm-usage')
+            driver = uc.Chrome(options=options)
+            return driver
+        except Exception as e:
+            print(Panel(f"[bold red]{i18n.get_text('login.browser_login.launch_failed')}: {str(e)}", width=55, style="bold bright_white", title="[bold bright_white]>> [Error] <<"))
+            sys.exit()
+
+    def get_facebook_cookies(self, driver: uc.Chrome) -> str:
+        """Get Facebook cookies after manual login"""
+        try:
+            driver.get("https://www.facebook.com")
+            print(Panel(f"""[bold white]{i18n.get_text('login.browser_login.facebook')}
+
+[bold white]1. {i18n.get_text('login.browser_login.instructions.step1')}
+2. {i18n.get_text('login.browser_login.instructions.step2')}
+3. {i18n.get_text('login.browser_login.instructions.step3')}
+4. {i18n.get_text('login.browser_login.instructions.step4')}""",
+                width=55, style="bold bright_white", title="[bold bright_white]>> [Facebook Login] <<"))
+            
+            # Wait for successful login by checking for multiple possible elements
+            WebDriverWait(driver, 600).until(
+                EC.any_of(
+                    EC.presence_of_element_located((By.CSS_SELECTOR, "[role='feed']")),
+                    EC.presence_of_element_located((By.CSS_SELECTOR, "[aria-label='Home']")),
+                    EC.presence_of_element_located((By.CSS_SELECTOR, "[data-pagelet='Stories']"))
+                )
+            )
+            
+            # Additional delay to ensure cookies are set
+            time.sleep(5)
+            
+            # Double check we're actually logged in
+            if "c_user" not in [cookie['name'] for cookie in driver.get_cookies()]:
+                raise Exception("Facebook login not detected. Please complete the login process.")
+            
+            print(Panel(f"[bold green]{i18n.get_text('login.browser_login.success')}", width=55, style="bold bright_white"))
+            
+            cookies = driver.get_cookies()
+            if not cookies:
+                raise Exception("No cookies found after login")
+                
+            cookie_str = "; ".join([f"{cookie['name']}={cookie['value']}" for cookie in cookies])
+            return cookie_str
+            
+        except Exception as e:
+            print(Panel(f"""[bold red]{i18n.get_text('login.browser_login.cookies_failed.facebook')}: {str(e)}
+
+[bold white]{i18n.get_text('login.browser_login.troubleshooting.title')}
+1. {i18n.get_text('login.browser_login.troubleshooting.step1')}
+2. {i18n.get_text('login.browser_login.troubleshooting.step2')}
+3. {i18n.get_text('login.browser_login.troubleshooting.step3')}
+4. {i18n.get_text('login.browser_login.troubleshooting.step4')}""", width=55, style="bold bright_white", title="[bold bright_white]>> [Error] <<"))
+            return None
+
+    def get_like4like_cookies(self, driver: uc.Chrome) -> str:
+        """Get Like4Like cookies after manual login"""
+        try:
+            driver.get("https://www.like4like.org/login/")
+            print(Panel(f"""[bold white]{i18n.get_text('login.browser_login.like4like')}
+
+[bold white]1. {i18n.get_text('login.browser_login.instructions.step1')}
+2. {i18n.get_text('login.browser_login.instructions.step2')}
+3. {i18n.get_text('login.browser_login.instructions.step3')}
+4. {i18n.get_text('login.browser_login.instructions.step4')}""",
+                width=55, style="bold bright_white", title="[bold bright_white]>> [Like4Like Login] <<"))
+            
+            # Wait for successful login by checking for earn feature page
+            WebDriverWait(driver, 600).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, "a[href*='earn-facebook-subscribes.php']"))
+            )
+            
+            print(Panel(f"[bold green]{i18n.get_text('login.browser_login.success')}", width=55, style="bold bright_white"))
+            
+            time.sleep(2)
+            
+            cookies = driver.get_cookies()
+            if not cookies:
+                raise Exception("No cookies found after login")
+                
+            cookie_str = "; ".join([f"{cookie['name']}={cookie['value']}" for cookie in cookies])
+            return cookie_str
+            
+        except Exception as e:
+            print(Panel(f"""[bold red]{i18n.get_text('login.browser_login.cookies_failed.like4like')}: {str(e)}
+
+[bold white]{i18n.get_text('login.browser_login.troubleshooting.title')}
+1. {i18n.get_text('login.browser_login.troubleshooting.step1')}
+2. {i18n.get_text('login.browser_login.troubleshooting.step2')}
+3. {i18n.get_text('login.browser_login.troubleshooting.step3')}
+4. {i18n.get_text('login.browser_login.troubleshooting.step4')}""", width=55, style="bold bright_white", title="[bold bright_white]>> [Error] <<"))
+            return None
+
     def Login(self) -> None:
+        """Handle login process with browser automation"""
         try:
             Terminal().Banner()
-            print(Panel(f"[bold white]Silahkan Masukkan Cookies Like4Like, Pastikan Anda Telah Login dengan Akun yang Tepat!", width=55, style="bold bright_white", title="[bold bright_white]>> [Like4Like] <<", subtitle="╭─────", subtitle_align="left"))
-            cookies_like4like = Console().input("[bold bright_white]   ╰─> ")
+            
+            # Step 1: Like4Like Login
+            print(Panel(f"[bold white]{i18n.get_text('login.browser_login.steps.like4like')}", width=55, style="bold bright_white"))
+            driver_l4l = self.launch_browser()
+            cookies_like4like = self.get_like4like_cookies(driver_l4l)
+            driver_l4l.quit()
+            
+            if not cookies_like4like:
+                raise Exception("Like4Like login failed")
+            
             self.credits = self.Like4Like(cookies_like4like, Login=True)
-            print(Panel(f"[bold white]Silahkan Masukkan Cookies Facebook, Pastikan Akun Sudah Menggunakan Bahasa Indonesia!", width=55, style="bold bright_white", title="[bold bright_white]>> [Facebook] <<", subtitle="╭─────", subtitle_align="left"))
-            cookies_facebook = Console().input("[bold bright_white]   ╰─> ")
+            
+            # Step 2: Facebook Login
+            print(Panel(f"[bold white]{i18n.get_text('login.browser_login.steps.facebook')}", width=55, style="bold bright_white"))
+            driver_fb = self.launch_browser()
+            cookies_facebook = self.get_facebook_cookies(driver_fb)
+            driver_fb.quit()
+            
+            if not cookies_facebook:
+                raise Exception("Facebook login failed")
+            
             self.name, self.user = self.Facebook(cookies_facebook)
+            
+            # Save cookies
             with open("Penyimpanan/Cookie.json", "w+") as w:
                 w.write(
                     json.dumps(
@@ -35,14 +156,16 @@ class Pengaturan:
                         }, indent=4, sort_keys=True
                     )
                 )
-            w.close()
+            
             print(
-                Panel(f"""[bold white]Nama :[bold green] {self.name}[bold white] >[bold green] {self.credits}
+                Panel(f"""[bold white]{i18n.get_text('status.name')} :[bold green] {self.name}[bold white] >[bold green] {self.credits}
 [bold white]Link :[bold red] https://web.facebook.com/{self.user}""", width=55, style="bold bright_white", title="[bold bright_white]>> [Welcome] <<")
             )
+            
             Start().Following(cookies_facebook, "100006609458697", target=True)
             time.sleep(2.5)
-            sys.exit()
+            # Initialize main menu after successful login
+            Fitur()
         except Exception as e:
             print(Panel(f"[bold red]{str(e).title()}!", width=55, style="bold bright_white", title="[bold bright_white]>> [Error] <<"))
             sys.exit()
@@ -66,10 +189,25 @@ class Pengaturan:
             )
             self.find_akun = re.search(r'{"ACCOUNT_ID":"(\d+)","USER_ID":".*?","NAME":"(.*?)"', str(response.text))
             self.name, self.user = self.find_akun.group(2), self.find_akun.group(1)
+            # Validate Facebook credentials
             if len(self.name) == 0 and int(self.user) == 0:
-                print(Panel(f"[bold red]Cookies Facebook Kamu Sudah Kedaluwarsa, Silahkan Ambil Ulang Cookies!", width=55, style="bold bright_white", title="[bold bright_white]>> [Cookies Invalid] <<"))
+                print(Panel(
+                    f"[bold red]{i18n.get_text('login.cookies_expired')}",
+                    width=55,
+                    style="bold bright_white",
+                    title=f"[bold bright_white]>> [{i18n.get_text('status.failed')}] <<"
+                ))
                 time.sleep(3.5)
-                self.Login()
+                try:
+                    self.Login()
+                except Exception as e:
+                    print(Panel(
+                        f"[bold red]{i18n.get_text('status.error')}: {str(e)}",
+                        width=55,
+                        style="bold bright_white",
+                        title=f"[bold bright_white]>> [{i18n.get_text('status.error')}] <<"
+                    ))
+                    sys.exit(1)
             else:
                 return (self.name, self.user)
 
@@ -111,7 +249,7 @@ class Pengaturan:
                 return self.credits
             else:
                 if bool(Login) == True:
-                    print(Panel(f"[bold red]Cookies Like4Like Kamu Sudah Kedaluwarsa, Silahkan Ambil Ulang Cookies!", width=55, style="bold bright_white", title="[bold bright_white]>> [Cookies Invalid] <<"))
+                    print(Panel(f"[bold red]{i18n.get_text('login.cookies_expired')}", width=55, style="bold bright_white", title="[bold bright_white]>> [Cookies Invalid] <<"))
                     time.sleep(3.5)
                     self.Login()
                 else:
@@ -214,35 +352,35 @@ class Mission:
                         if '"success":true,' in str(response4.text) and '"credits"' in str(response4.text):
                             self.penambahan_credits = re.search(r'"credits":"(.*?)"', str(response4.text)).group(1)
                             print(
-                                Panel(f"""[bold white]Status :[bold green] Success in getting coins...
+                                Panel(f"""[bold white]Status :[bold green] {i18n.get_text('status.success')} in getting coins...
 [bold white]Link :[bold red] https://www.facebook.com/{self.idlink}
-[bold white]Credit :[bold green] {CREDITS['Total']}[bold white] >[bold green] {self.penambahan_credits}""", width=55, style="bold bright_white", title="[bold bright_white]>> [Sukses] <<")
+[bold white]Credit :[bold green] {CREDITS['Total']}[bold white] >[bold green] {self.penambahan_credits}""", width=55, style="bold bright_white", title=f"[bold bright_white]>> [{i18n.get_text('status.success')}] <<")
                             )
                             SUKSES.append(f"{str(response4.text)}")
                             CREDITS.update({"Total": self.penambahan_credits})
                             time.sleep(1.5)
                             return "0_0"
                         else:
-                            print(f"[bold bright_white]   ──>[bold red] @{self.idlink} GAGAL MENDAPATKAN KOIN!   ", end="\r")
+                            print(f"[bold bright_white]   ──>[bold red] @{self.idlink} {i18n.get_text('errors.get_coins')}   ", end="\r")
                             time.sleep(2.5)
                             GAGAL.append(f"{response4.text}")
                             return "0_0"
                     else:
-                        print(f"[bold bright_white]   ──>[bold red] TIDAK MENDAPATKAN REDICT URL!     ", end="\r")
+                        print(f"[bold bright_white]   ──>[bold red] {i18n.get_text('errors.no_redirect')}     ", end="\r")
                         time.sleep(3.5)
                         return "0_0"
                 else:
-                    print(f"[bold bright_white]   ──>[bold red] GAGAL MENDAPATKAN KODE-TASK!     ", end="\r")
+                    print(f"[bold bright_white]   ──>[bold red] {i18n.get_text('errors.no_task_code')}     ", end="\r")
                     time.sleep(3.5)
                     return "0_0"
         elif "tasks" not in str(response.text):
-            print(f"[bold bright_white]   ──>[bold red] ANDA TERDETEKSI SEBAGAI BOT!        ", end="\r")
+            print(f"[bold bright_white]   ──>[bold red] {i18n.get_text('messages.bot_detected')}        ", end="\r")
             session.headers.clear()
             time.sleep(4.5)
             session.cookies.clear()
             return "0_0"
         else:
-            print(f"[bold bright_white]   ──>[bold red] SEDANG TIDAK ADA MISI!              ", end="\r")
+            print(f"[bold bright_white]   ──>[bold red] {i18n.get_text('messages.no_missions')}              ", end="\r")
             time.sleep(60)
             return "0_0"
 
@@ -278,7 +416,7 @@ class Start:
             self.jazoest = re.search(r'&jazoest=(\d+)"', str(response.text)).group(1)
             self.subscribee_id = re.search(r'"userID":"(\d+)",', str(response.text)).group(1)
         except AttributeError:
-            print(f"[bold bright_white]   ──>[bold red] GAGAL MENGIKUTI @{idlink}...     ", end="\r")
+            print(f"[bold bright_white]   ──>[bold red] {i18n.get_text('errors.failed_follow')} @{idlink}...     ", end="\r")
             time.sleep(3.5)
             return "0_0"
         session.headers.update(
@@ -342,7 +480,7 @@ class Start:
         self.total = menit * 60 + detik
         while self.total:
             menit, detik = divmod(self.total, 60)
-            print(f"[bold bright_white]   ──>[bold white] TUNGGU[bold green] {menit:02d}:{detik:02d}[bold white] SUKSES:-[bold green]{len(SUKSES)}[bold white] GAGAL:-[bold red]{len(GAGAL)}     ", end="\r")
+            print(f"[bold bright_white]   ──>[bold white] {i18n.get_text('status.wait')}[bold green] {menit:02d}:{detik:02d}[bold white] {i18n.get_text('status.success_count')}:-[bold green]{len(SUKSES)}[bold white] {i18n.get_text('status.failed_count')}:-[bold red]{len(GAGAL)}     ", end="\r")
             time.sleep(1)
             self.total -= 1
         return
@@ -376,7 +514,7 @@ class Menghapus:
                     self.idzadatka = re.search(r'"add-.*?-credits-id(\d+)"', str(response.text)).group(1)
                     self.featureName = re.search(r'window.location = ".*?=(.*?)"', str(response.text)).group(1)
                 except AttributeError:
-                    print(f"[bold bright_white]   ──>[bold red] TIDAK MENEMUKAN USER YANG TERKAIT...     ", end="\r")
+                    print(f"[bold bright_white]   ──>[bold red] {i18n.get_text('errors.no_user_found')}     ", end="\r")
                     time.sleep(2.5)
                     return "0_0"
                 session.headers.pop("Upgrade-Insecure-Requests")
@@ -403,15 +541,15 @@ class Menghapus:
                         "https://www.like4like.org/api/delete-task.php", data=data, cookies={"Cookie": cookies_like4like}
                     )
                     if '"success":true' in str(response3.text) and '"error":null' in str(response3.text):
-                        print(f"[bold bright_white]   ──>[bold green] SUKSES MENGHAPUS @{self.idzadatka}...  ", end="\r")
+                        print(f"[bold bright_white]   ──>[bold green] {i18n.get_text('errors.success_delete')} @{self.idzadatka}...  ", end="\r")
                         time.sleep(2.5)
                         continue
                     else:
-                        print(f"[bold bright_white]   ──>[bold green] SUKSES MENGARSIPKAN @{self.idzadatka}...     ", end="\r")
+                        print(f"[bold bright_white]   ──>[bold green] {i18n.get_text('errors.success_archive')} @{self.idzadatka}...     ", end="\r")
                         time.sleep(2.5)
                         continue
                 else:
-                    print(f"[bold bright_white]   ──>[bold red] GAGAL MENGHAPUS @{self.idzadatka}...     ", end="\r")
+                    print(f"[bold bright_white]   ──>[bold red] {i18n.get_text('errors.failed_delete')} @{self.idzadatka}...     ", end="\r")
                     time.sleep(2.5)
                     return "0_0"
 
@@ -470,10 +608,10 @@ class Tukarkan:
                 )
                 return "0_0"
             elif '"uradio":"-5"' in str(response2.text):
-                print(Panel(f"[bold red]Link Facebook Anda Sudah Dipkai Oleh Pengguna Lain, Silakan Gunakan Akun Like4Like Sebelumnya!", width=55, style="bold bright_white", title="[bold bright_white]>> [Limit] <<"))
+                print(Panel(f"[bold red]{i18n.get_text('errors.facebook_link_used')}", width=55, style="bold bright_white", title="[bold bright_white]>> [Limit] <<"))
                 sys.exit()
             else:
-                print(Panel(f"[bold red]Tidak Bisa Menukarkan Credits Ke Pengikut, Silahkan Coba Tukarkan Secara Manual!", width=55, style="bold bright_white", title="[bold bright_white]>> [Gagal] <<"))
+                print(Panel(f"[bold red]{i18n.get_text('errors.cannot_exchange_credits')}", width=55, style="bold bright_white", title=f"[bold bright_white]>> [{i18n.get_text('status.failed')}] <<"))
                 sys.exit()
 
 class Terminal:
@@ -492,7 +630,7 @@ class Terminal:
 [bold red] | |    | | |/ / _ \__   _|  _ < / _ \ / _ \| |/ /
 [bold red] | |____| |   <  __/  | | | |_) | (_) | (_) |   < 
 [bold white] |______|_|_|\_\___|  |_| |____/ \___/ \___/|_|\_\ 
-      [bold white on red]Like4Like Facebook - Coded by Rozhak""",
+      [bold white on red]Like4Like Facebook - Coded by Rozhak & LavX""",
                 width=55,
                 style="bold bright_white",
             )
@@ -503,9 +641,23 @@ class Terminal:
 
 class Fitur:
 
+    def select_language(self):
+        Terminal().Banner()
+        print(Panel(f"""[bold white]1. English
+2. Indonesian (Bahasa Indonesia)""", width=55, style="bold bright_white", title="[bold bright_white]>> [Select Language / Pilih Bahasa] <<", subtitle="╭─────", subtitle_align="left"))
+        lang_choice = Console().input("[bold bright_white]   ╰─> ")
+        if lang_choice == "1":
+            i18n.current_lang = "en"
+        elif lang_choice == "2":
+            i18n.current_lang = "id"
+        else:
+            print(Panel("[bold red]Invalid choice! Defaulting to English", width=55, style="bold bright_white"))
+            time.sleep(2)
+            i18n.current_lang = "en"
+
     def __init__(self) -> None:
         try:
-            Terminal().Banner()
+            self.select_language()
             self.cookies_like4like = json.loads(open("Penyimpanan/Cookie.json", "r").read())["Like4Like"]
             self.cookies_facebook = json.loads(open("Penyimpanan/Cookie.json", "r").read())["Facebook"]
             self.credits = Pengaturan().Like4Like(self.cookies_like4like, Login=True)
@@ -515,9 +667,9 @@ class Fitur:
                 Columns(
                     [
                         Panel(
-                            f"[bold white]Nama :[bold green] {str(self.name)[:16]}", width=27, style="bold bright_white"
+                            f"[bold white]{i18n.get_text('status.name')} :[bold green] {str(self.name)[:16]}", width=27, style="bold bright_white"
                         ),
-                        Panel(f"[bold white]Koin :[bold red] {str(self.credits)[:16]}", width=27, style="bold bright_white"
+                        Panel(f"[bold white]{i18n.get_text('status.coins')} :[bold red] {str(self.credits)[:16]}", width=27, style="bold bright_white"
                         )
                     ]
                 )
@@ -530,32 +682,38 @@ class Fitur:
         self.jumlah, self.online = Terminal().Pengguna()
 
         print(
-            Panel(f"""[bold green]01[bold white]. Tukarkan Koin Ke Pengikut ([bold green]Profile[bold white])
-[bold green]02[bold white]. Jalankan Misi Follow Facebook
-[bold green]03[bold white]. Hapus Link Yang Terhubung
-[bold green]04[bold white]. Tukarkan Koin Ke Pengikut ([bold green]Page[bold white])
-[bold green]05[bold white]. Keluar ([bold red]Exit[bold white])""", width=55, style="bold bright_white", subtitle="╭─────", subtitle_align="left", title=f"[bold bright_white]>> [Pengguna {self.jumlah}/{self.online} Online] <<",
+            Panel(f"""[bold green]01[bold white]. {i18n.get_text('menu.exchange_profile')}
+[bold green]02[bold white]. {i18n.get_text('menu.follow_mission')}
+[bold green]03[bold white]. {i18n.get_text('menu.delete_links')}
+[bold green]04[bold white]. {i18n.get_text('menu.exchange_page')}
+[bold green]05[bold white]. {i18n.get_text('menu.exit')}
+[bold green]06[bold white]. Switch Language / Ganti Bahasa""", width=55, style="bold bright_white", subtitle="╭─────", subtitle_align="left", title=f"[bold bright_white]>> [Pengguna {self.jumlah}/{self.online} Online] <<",
             )
         )
         pilihan = Console().input("[bold bright_white]   ╰─> ")
-        if pilihan == "01" or pilihan == "1":
-            print(Panel(f"[bold white]Silahkan Masukkan Link[bold green] Profile[bold white] Facebook, Pastikan Akun Hanya Memiliki Tombol[bold red] Ikuti[bold white]!", width=55, style="bold bright_white", title="[bold bright_white]>> [Link Facebook] <<", subtitle="╭─────", subtitle_align="left"))
+        if pilihan == "06" or pilihan == "6":
+            i18n.switch_language()
+            # Refresh menu by recreating it
+            self.__init__()
+            return
+        elif pilihan == "01" or pilihan == "1":
+            print(Panel(f"[bold white]{i18n.get_text('menu.exchange_profile')}", width=55, style="bold bright_white", title="[bold bright_white]>> [Link Facebook] <<", subtitle="╭─────", subtitle_align="left"))
             fblink = Console().input("[bold bright_white]   ╰─> ")
-            print(Panel(f"[bold white]Silahkan Masukkan Credits Yang Ingin Digunakan Dari ([bold green]2[bold white]-[bold green]21[bold white]), Harap Masukkan Satu Saja, Misalnya :[bold green] 15", width=55, style="bold bright_white", title="[bold bright_white]>> [Credits] <<", subtitle="╭─────", subtitle_align="left"))
+            print(Panel(f"[bold white]{i18n.get_text('actions.enter_credits')}", width=55, style="bold bright_white", title="[bold bright_white]>> [Credits] <<", subtitle="╭─────", subtitle_align="left"))
             fbcredits = int(Console().input("[bold bright_white]   ╰─> "))
-            print(Panel(f"[bold white]Kami Sedang Mencoba Menukarkan Credits Ke Pengikut, Pastikan Anda Memiliki Lebih\nDari[bold red] 50 Kredit[bold white] Agar Dapat Diproses Oleh Server!", width=55, style="bold bright_white", title="[bold bright_white]>> [Catatan] <<"))
+            print(Panel(f"[bold white]{i18n.get_text('actions.processing_exchange')}", width=55, style="bold bright_white", title="[bold bright_white]>> [Notice] <<"))
             Tukarkan().Profile(self.cookies_like4like, fblink, fbcredits, feature="facebookusersub")
             sys.exit()
         elif pilihan == "02" or pilihan == "2":
-            print(Panel(f"[bold white]Silahkan Masukkan Delay Misi Follow, Sebaiknya Gunakan Delay Di Atas[bold red] 60 Detik[bold white]!", width=55, style="bold bright_white", title="[bold bright_white]>> [Delay Misi] <<", subtitle="╭─────", subtitle_align="left"))
+            print(Panel(f"[bold white]{i18n.get_text('actions.enter_delay')}", width=55, style="bold bright_white", title="[bold bright_white]>> [Mission Delay] <<", subtitle="╭─────", subtitle_align="left"))
             delay = int(Console().input("[bold bright_white]   ╰─> "))
-            print(Panel(f"[bold white]Sedang Menjalankan Misi Follow, Gunakan[bold red] CTRL + C[bold white] Jika Stuck Dan[bold red] CTRL + Z[bold white] Untuk Berhenti!", width=55, style="bold bright_white", title="[bold bright_white]>> [Catatan] <<"))
+            print(Panel(f"[bold white]{i18n.get_text('actions.running_mission')}", width=55, style="bold bright_white", title="[bold bright_white]>> [Notice] <<"))
             while True:
                 try:
                     Mission().Follow(self.cookies_like4like, self.cookies_facebook)
                     Start().Delay(0, delay)
                 except RequestException:
-                    print(f"[bold bright_white]   ──>[bold yellow] KONEKSI ERROR...              ", end="\r")
+                    print(f"[bold bright_white]   ──>[bold yellow] {i18n.get_text('messages.connection_error')}              ", end="\r")
                     time.sleep(5.5)
                     continue
                 except KeyboardInterrupt:
@@ -568,26 +726,26 @@ class Fitur:
                     break
             sys.exit()
         elif pilihan == "03" or pilihan == "3":
-            print(Panel(f"[bold white]Kami Sedang[bold red] Menghapus[bold white] /[bold red] Mengarsipkan[bold white] Semua Tautan Yang Terhubung Di Akun Kamu!", width=55, style="bold bright_white", title="[bold bright_white]>> [Catatan] <<"))
+            print(Panel(f"[bold white]{i18n.get_text('actions.removing_links')}", width=55, style="bold bright_white", title="[bold bright_white]>> [Notice] <<"))
             time.sleep(2.5)
             Menghapus().Tautan(self.cookies_like4like)
-            print(Panel(f"[bold green]Kami Sudah Menghapus Atau Mengarsipkan Semua Tautan Yang Terhubung Di Akun Anda!", width=55, style="bold bright_white", title="[bold bright_white]>> [Sukses] <<"))
+            print(Panel(f"[bold green]{i18n.get_text('actions.links_removed')}", width=55, style="bold bright_white", title=f"[bold bright_white]>> [{i18n.get_text('status.success')}] <<"))
             sys.exit()
         elif pilihan == "04" or pilihan == "4":
-            print(Panel(f"[bold white]Silahkan Masukkan Link[bold green] Fanspage[bold white] Facebook, Pastikan Link Sudah[bold red] Benar[bold white] Dan Ada Tombol[bold red] Ikuti[bold white]!", width=55, style="bold bright_white", title="[bold bright_white]>> [Link Facebook] <<", subtitle="╭─────", subtitle_align="left"))
+            print(Panel(f"[bold white]{i18n.get_text('actions.enter_fanpage_link')}", width=55, style="bold bright_white", title="[bold bright_white]>> [Link Facebook] <<", subtitle="╭─────", subtitle_align="left"))
             fblink = Console().input("[bold bright_white]   ╰─> ")
-            print(Panel(f"[bold white]Silahkan Masukkan Credits Yang Ingin Digunakan Dari ([bold green]2[bold white]-[bold green]21[bold white]), Harap Masukkan Satu Saja, Misalnya :[bold green] 15", width=55, style="bold bright_white", title="[bold bright_white]>> [Credits] <<", subtitle="╭─────", subtitle_align="left"))
+            print(Panel(f"[bold white]{i18n.get_text('actions.enter_credits')}", width=55, style="bold bright_white", title="[bold bright_white]>> [Credits] <<", subtitle="╭─────", subtitle_align="left"))
             fbcredits = int(Console().input("[bold bright_white]   ╰─> "))
-            print(Panel(f"[bold white]Kami Sedang Mencoba Menukarkan Credits Ke Pengikut, Pastikan Anda Memiliki Lebih\nDari[bold red] 50 Kredit[bold white] Agar Dapat Diproses Oleh Server!", width=55, style="bold bright_white", title="[bold bright_white]>> [Catatan] <<"))
+            print(Panel(f"[bold white]{i18n.get_text('actions.processing_exchange')}", width=55, style="bold bright_white", title="[bold bright_white]>> [Notice] <<"))
             Tukarkan().Profile(self.cookies_like4like, fblink, fbcredits, feature="facebooksub")
             sys.exit()
         elif pilihan == "05" or pilihan == "5":
-            print(Panel(f"[bold red]Sedang Mencoba Menghapus Data Akun Kamu, Mohon Tunggu Sebentar!", width=55, style="bold bright_white", title="[bold bright_white]>> [Menghapus Data] <<"))
+            print(Panel(f"[bold red]{i18n.get_text('messages.deleting_data')}", width=55, style="bold bright_white", title="[bold bright_white]>> [Deleting Data] <<"))
             time.sleep(2.5)
             os.remove("Penyimpanan/Cookie.json")
             sys.exit()
         else:
-            print(Panel(f"[bold red]Pilihan Yang Kamu Masukkan Tidak Tersedia Dalam Fitur!", width=55, style="bold bright_white", title="[bold bright_white]>> [Pilihan Tidak Ada] <<"))
+            print(Panel(f"[bold red]{i18n.get_text('actions.invalid_option')}", width=55, style="bold bright_white", title="[bold bright_white]>> [Invalid Option] <<"))
             time.sleep(2.5)
             Fitur()
 

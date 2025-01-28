@@ -2,7 +2,34 @@
     "login": {
         "like4like_cookies": "Silahkan Masukkan Cookies Like4Like, Pastikan Anda Telah Login dengan Akun yang Tepat!",
         "facebook_cookies": "Silahkan Masukkan Cookies Facebook, Pastikan Akun Sudah Menggunakan Bahasa Indonesia!",
-        "cookies_expired": "Cookies Facebook Kamu Sudah Kedaluwarsa, Silahkan Ambil Ulang Cookies!"
+        "cookies_expired": "Cookies Facebook Kamu Sudah Kedaluwarsa, Silahkan Ambil Ulang Cookies!",
+        "browser_login": {
+            "facebook": "Silahkan login ke Facebook di jendela browser",
+            "like4like": "Silahkan login ke Like4Like di jendela browser",
+            "launch_failed": "Gagal membuka browser",
+            "cookies_failed": {
+                "facebook": "Gagal mendapatkan cookies Facebook",
+                "like4like": "Gagal mendapatkan cookies Like4Like"
+            },
+            "steps": {
+                "like4like": "Langkah 1: Login Like4Like",
+                "facebook": "Langkah 2: Login Facebook"
+            },
+            "instructions": {
+                "step1": "Masukkan kredensial Anda dan klik Login",
+                "step2": "Tunggu hingga dashboard dimuat",
+                "step3": "JANGAN tutup jendela browser",
+                "step4": "Program akan otomatis melanjutkan setelah login berhasil"
+            },
+            "success": "Login terdeteksi! Mendapatkan cookies...",
+            "troubleshooting": {
+                "title": "Pastikan untuk:",
+                "step1": "Masukkan kredensial yang benar",
+                "step2": "Tunggu hingga dashboard dimuat",
+                "step3": "Biarkan jendela browser tetap terbuka",
+                "step4": "Periksa koneksi internet Anda"
+            }
+        }
     },
     "menu": {
         "title": "Pilihan Yang Tersedia",

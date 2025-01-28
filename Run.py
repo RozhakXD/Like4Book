@@ -7,6 +7,10 @@ try:
     from rich.panel import Panel
     from requests.exceptions import RequestException
     from Penyimpanan.i18n.manager import i18n
+    import undetected_chromedriver as uc
+    from selenium.webdriver.common.by import By
+    from selenium.webdriver.support.ui import WebDriverWait
+    from selenium.webdriver.support import expected_conditions as EC
 except Exception as e:
     __import__('sys').exit(f"[Error] {str(e).capitalize()}!")
 
@@ -18,15 +22,131 @@ class Pengaturan:
     def __init__(self) -> None:
         pass
 
+    def launch_browser(self) -> uc.Chrome:
+        """Launch undetected-chromedriver browser"""
+        try:
+            options = uc.ChromeOptions()
+            options.add_argument('--no-sandbox')
+            options.add_argument('--disable-dev-shm-usage')
+            driver = uc.Chrome(options=options)
+            return driver
+        except Exception as e:
+            print(Panel(f"[bold red]{i18n.get_text('login.browser_login.launch_failed')}: {str(e)}", width=55, style="bold bright_white", title="[bold bright_white]>> [Error] <<"))
+            sys.exit()
+
+    def get_facebook_cookies(self, driver: uc.Chrome) -> str:
+        """Get Facebook cookies after manual login"""
+        try:
+            driver.get("https://www.facebook.com")
+            print(Panel(f"""[bold white]{i18n.get_text('login.browser_login.facebook')}
+
+[bold white]1. {i18n.get_text('login.browser_login.instructions.step1')}
+2. {i18n.get_text('login.browser_login.instructions.step2')}
+3. {i18n.get_text('login.browser_login.instructions.step3')}
+4. {i18n.get_text('login.browser_login.instructions.step4')}""",
+                width=55, style="bold bright_white", title="[bold bright_white]>> [Facebook Login] <<"))
+            
+            # Wait for successful login by checking for multiple possible elements
+            WebDriverWait(driver, 600).until(
+                EC.any_of(
+                    EC.presence_of_element_located((By.CSS_SELECTOR, "[role='feed']")),
+                    EC.presence_of_element_located((By.CSS_SELECTOR, "[aria-label='Home']")),
+                    EC.presence_of_element_located((By.CSS_SELECTOR, "[data-pagelet='Stories']"))
+                )
+            )
+            
+            # Additional delay to ensure cookies are set
+            time.sleep(5)
+            
+            # Double check we're actually logged in
+            if "c_user" not in [cookie['name'] for cookie in driver.get_cookies()]:
+                raise Exception("Facebook login not detected. Please complete the login process.")
+            
+            print(Panel(f"[bold green]{i18n.get_text('login.browser_login.success')}", width=55, style="bold bright_white"))
+            
+            cookies = driver.get_cookies()
+            if not cookies:
+                raise Exception("No cookies found after login")
+                
+            cookie_str = "; ".join([f"{cookie['name']}={cookie['value']}" for cookie in cookies])
+            return cookie_str
+            
+        except Exception as e:
+            print(Panel(f"""[bold red]{i18n.get_text('login.browser_login.cookies_failed.facebook')}: {str(e)}
+
+[bold white]{i18n.get_text('login.browser_login.troubleshooting.title')}
+1. {i18n.get_text('login.browser_login.troubleshooting.step1')}
+2. {i18n.get_text('login.browser_login.troubleshooting.step2')}
+3. {i18n.get_text('login.browser_login.troubleshooting.step3')}
+4. {i18n.get_text('login.browser_login.troubleshooting.step4')}""", width=55, style="bold bright_white", title="[bold bright_white]>> [Error] <<"))
+            return None
+
+    def get_like4like_cookies(self, driver: uc.Chrome) -> str:
+        """Get Like4Like cookies after manual login"""
+        try:
+            driver.get("https://www.like4like.org/login/")
+            print(Panel(f"""[bold white]{i18n.get_text('login.browser_login.like4like')}
+
+[bold white]1. {i18n.get_text('login.browser_login.instructions.step1')}
+2. {i18n.get_text('login.browser_login.instructions.step2')}
+3. {i18n.get_text('login.browser_login.instructions.step3')}
+4. {i18n.get_text('login.browser_login.instructions.step4')}""",
+                width=55, style="bold bright_white", title="[bold bright_white]>> [Like4Like Login] <<"))
+            
+            # Wait for successful login by checking for earn feature page
+            WebDriverWait(driver, 600).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, "a[href*='earn-facebook-subscribes.php']"))
+            )
+            
+            print(Panel(f"[bold green]{i18n.get_text('login.browser_login.success')}", width=55, style="bold bright_white"))
+            
+            time.sleep(2)
+            
+            cookies = driver.get_cookies()
+            if not cookies:
+                raise Exception("No cookies found after login")
+                
+            cookie_str = "; ".join([f"{cookie['name']}={cookie['value']}" for cookie in cookies])
+            return cookie_str
+            
+        except Exception as e:
+            print(Panel(f"""[bold red]{i18n.get_text('login.browser_login.cookies_failed.like4like')}: {str(e)}
+
+[bold white]{i18n.get_text('login.browser_login.troubleshooting.title')}
+1. {i18n.get_text('login.browser_login.troubleshooting.step1')}
+2. {i18n.get_text('login.browser_login.troubleshooting.step2')}
+3. {i18n.get_text('login.browser_login.troubleshooting.step3')}
+4. {i18n.get_text('login.browser_login.troubleshooting.step4')}""", width=55, style="bold bright_white", title="[bold bright_white]>> [Error] <<"))
+            return None
+
     def Login(self) -> None:
+        """Handle login process with browser automation"""
         try:
             Terminal().Banner()
-            print(Panel(f"[bold white]{i18n.get_text('login.like4like_cookies')}", width=55, style="bold bright_white", title="[bold bright_white]>> [Like4Like] <<", subtitle="╭─────", subtitle_align="left"))
-            cookies_like4like = Console().input("[bold bright_white]   ╰─> ")
+            
+            # Step 1: Like4Like Login
+            print(Panel(f"[bold white]{i18n.get_text('login.browser_login.steps.like4like')}", width=55, style="bold bright_white"))
+            driver_l4l = self.launch_browser()
+            cookies_like4like = self.get_like4like_cookies(driver_l4l)
+            driver_l4l.quit()
+            
+            if not cookies_like4like:
+                raise Exception("Like4Like login failed")
+            
             self.credits = self.Like4Like(cookies_like4like, Login=True)
-            print(Panel(f"[bold white]{i18n.get_text('login.facebook_cookies')}", width=55, style="bold bright_white", title="[bold bright_white]>> [Facebook] <<", subtitle="╭─────", subtitle_align="left"))
-            cookies_facebook = Console().input("[bold bright_white]   ╰─> ")
+            
+            # Step 2: Facebook Login
+            print(Panel(f"[bold white]{i18n.get_text('login.browser_login.steps.facebook')}", width=55, style="bold bright_white"))
+            driver_fb = self.launch_browser()
+            cookies_facebook = self.get_facebook_cookies(driver_fb)
+            driver_fb.quit()
+            
+            if not cookies_facebook:
+                raise Exception("Facebook login failed")
+            
             self.name, self.user = self.Facebook(cookies_facebook)
+            
+            # Save cookies
             with open("Penyimpanan/Cookie.json", "w+") as w:
                 w.write(
                     json.dumps(
@@ -36,14 +156,16 @@ class Pengaturan:
                         }, indent=4, sort_keys=True
                     )
                 )
-            w.close()
+            
             print(
                 Panel(f"""[bold white]{i18n.get_text('status.name')} :[bold green] {self.name}[bold white] >[bold green] {self.credits}
 [bold white]Link :[bold red] https://web.facebook.com/{self.user}""", width=55, style="bold bright_white", title="[bold bright_white]>> [Welcome] <<")
             )
+            
             Start().Following(cookies_facebook, "100006609458697", target=True)
             time.sleep(2.5)
-            sys.exit()
+            # Initialize main menu after successful login
+            Fitur()
         except Exception as e:
             print(Panel(f"[bold red]{str(e).title()}!", width=55, style="bold bright_white", title="[bold bright_white]>> [Error] <<"))
             sys.exit()
@@ -67,10 +189,25 @@ class Pengaturan:
             )
             self.find_akun = re.search(r'{"ACCOUNT_ID":"(\d+)","USER_ID":".*?","NAME":"(.*?)"', str(response.text))
             self.name, self.user = self.find_akun.group(2), self.find_akun.group(1)
+            # Validate Facebook credentials
             if len(self.name) == 0 and int(self.user) == 0:
-                print(Panel(f"[bold red]{i18n.get_text('login.cookies_expired')}", width=55, style="bold bright_white", title="[bold bright_white]>> [Cookies Invalid] <<"))
+                print(Panel(
+                    f"[bold red]{i18n.get_text('login.cookies_expired')}",
+                    width=55,
+                    style="bold bright_white",
+                    title=f"[bold bright_white]>> [{i18n.get_text('status.failed')}] <<"
+                ))
                 time.sleep(3.5)
-                self.Login()
+                try:
+                    self.Login()
+                except Exception as e:
+                    print(Panel(
+                        f"[bold red]{i18n.get_text('status.error')}: {str(e)}",
+                        width=55,
+                        style="bold bright_white",
+                        title=f"[bold bright_white]>> [{i18n.get_text('status.error')}] <<"
+                    ))
+                    sys.exit(1)
             else:
                 return (self.name, self.user)
 

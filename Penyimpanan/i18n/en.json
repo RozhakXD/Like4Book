@@ -2,7 +2,34 @@
     "login": {
         "like4like_cookies": "Please enter your Like4Like Cookies, make sure you are logged in with the correct account!",
         "facebook_cookies": "Please enter your Facebook Cookies!",
-        "cookies_expired": "Your Facebook cookies have expired, please get new cookies!"
+        "cookies_expired": "Your Facebook cookies have expired, please get new cookies!",
+        "browser_login": {
+            "facebook": "Please login to Facebook in the browser window",
+            "like4like": "Please login to Like4Like in the browser window",
+            "launch_failed": "Failed to launch browser",
+            "cookies_failed": {
+                "facebook": "Failed to get Facebook cookies",
+                "like4like": "Failed to get Like4Like cookies"
+            },
+            "steps": {
+                "like4like": "Step 1: Like4Like Login",
+                "facebook": "Step 2: Facebook Login"
+            },
+            "instructions": {
+                "step1": "Enter your credentials and click Login",
+                "step2": "Wait for the dashboard to load",
+                "step3": "DO NOT close the browser window",
+                "step4": "The program will automatically continue once logged in"
+            },
+            "success": "Login detected! Getting cookies...",
+            "troubleshooting": {
+                "title": "Please make sure to:",
+                "step1": "Enter correct credentials",
+                "step2": "Wait for the dashboard to load",
+                "step3": "Keep the browser window open",
+                "step4": "Check your internet connection"
+            }
+        }
     },
     "menu": {
         "title": "Available Options",
